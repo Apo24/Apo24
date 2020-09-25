@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Modelo de autos con la función construction</h1>
+    <label for="marca">Marca del auto
+        <input id="marca"type="text" value="ford">
+    </label><br>
+    <label for="modelo">Modelo
+        <input id="modelo" type="text" value="raptor">
+    </label><br>
+    <label for="annio">Año
+        <input id="annio" type="number" value="2020">
+    </label><br>
+    <button id="guardar">Guardar</button>
+    <script>
+        var boton = document.getElementById("guardar");
+        boton.addEventListener("click", dibujoPorClick);
+
+        function dibujoPorClick (){
+            function auto(marca, modelo, annio){
+                this.marca = marca;
+                this.modelo = modelo;
+                this.annio = annio;
+            }
+            
+            var marcao = document.getElementById("marca").value;
+            var modeloo = document.getElementById("modelo").value;
+            var annioo = document.getElementById("annio").value;
+
+            var vari = 0;
+            
+            var autoNuevo = [];
+
+            var autoN = new auto(marcao, modeloo, annioo)
+
+            autoNuevo.push(autoN);
+
+            var lista = document.createElement('p');
+            var texto = document.createTextNode(autoNuevo[vari].marca+" "+autoNuevo[vari].modelo+" "+autoNuevo[vari].annio);
+            lista.appendChild(texto);
+            document.body.appendChild(lista);
+            
+            vari++;
+
+        }
+
+
+    </script>
+</body>
+</html>
