@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilacho.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="cabecera">
+        <p><strong>Hotel Marriott Buenos Aires</strong></p>
+        <div class="nav-header">
+            
+        </div >
+    </header>
+   <main class="contenido">
+       <section class="opciones">
+           <div><button type="submit" id="botonasiento">Buscador de Facturas</button></div>
+           <div><button type="submit" id="botonasiento2">Generar Docs para integración</button></div>
+       </section>
+       <div class="visualizacion" id="nada"></div>
+       <section id="factu" class="none">
+        <div class="form"> 
+        <fieldset>
+        <legend align="left"><strong>Datos de facturas o notas de credito</strong></legend>
+        <p>
+        Prefijo del documento
+        <input id="n1" type="number" name="numberexample"  />
+        </p>
+  
+        <p>
+          Tipo de documento
+          <select name="menu" onchange="ShowSelected" id="n2">
+            <option id="n2" value="FA" onchange="ShowSelected">FA</option>
+            <option id="n2" value="FB" onchange="ShowSelected">FB</option>
+            <option id="n2" value="FT" onchange="ShowSelected">FT</option>
+            <option id="n2" value="NCA"onchange="ShowSelected">NCA</option>
+            <option id="n2" value="NCB" onchange="ShowSelected">NCB</option>
+            <option id="n2" value="NCT" onchange="ShowSelected">NCT</option>
+          </select>
+        </p>
+  
+        <p>
+          N° de Documento
+        <input type="number" name="numberexample" id="n3" >
+          </p>
+        </div>
+      </fieldset>
+  
+          <input type="submit" value="Enviar" id="botoncito" class="botoncito"/>
+        </section>
+    
+   <section id="doc" class="none">
+    <div class="form1">
+       <label for="dateint">Selecciones Fecha
+           <input type="date" id="dateint">
+       </label><br>
+       <input id="doct1" type="button" value="TXT Trial">
+       <input id="doct2" type="button" value="TXT Financiero">
+       <input id="doct3" type="button" value="TXT Fiscal">
+      </div>
+   </section>
+  
+</main>
+    
+   <footer class="footer">
+       <div>sobre Nojotros</div>
+       <div>Contactanos</div>
+   </footer>
+
+   <script>
+    var boton = document.getElementById("botoncito");
+    boton.addEventListener("click", dibujoPorClick);
+    var n12 = document.getElementById("n2").value;
+
+
+      function dibujoPorClick(){
+
+    var n12 = document.getElementById("n2").value;
+    var n11 = document.getElementById("n1").value;
+    var n13 = document.getElementById("n3").value;
+
+    if (n12 == "FA"){
+      nc_fac = "A"
+
+    window.location.href="file:///Z:/Docs/BUEMBFACTURA"+nc_fac+n11+"_"+n13+".pdf";
+  }
+  if (n12 == "FB"){
+    nc_fac = "B"
+
+  window.location.href="file:///Z:/Docs/BUEMBFACTURA"+nc_fac+n11+"_"+n13+".pdf";
+}
+if (n12 == "FT"){
+  nc_fac = "T"
+
+window.location.href="file:///Z:/Docs/BUEMBFACTURA"+nc_fac+n11+"_"+n13+".pdf";
+}
+if (n12 == "NCA"){
+  nc_fac = "A"
+
+window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
+}
+if (n12 == "NCB"){
+  nc_fac = "B"
+
+window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
+}
+if (n12 == "NCT"){
+  nc_fac = "T"
+
+window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
+}
+
+
+  }
+  </script>
+
+  <script>
+
+    var doc1 = document.getElementById("doct1");
+    var doc2 = document.getElementById("doct2");
+    var doc3 = document.getElementById("doct3");
+    doc1.addEventListener("click", verdoc1);
+    doc2.addEventListener("click", verdoc2);
+    doc3.addEventListener("click", verdoc3);
+
+    function verdoc1(){
+        var dateInt = document.querySelector('#dateint').value;
+        var fechaDoc = dateInt.split("-",3);
+        window.location.href = "http://buemboprdb1/export/opera/buemb/trial"+fechaDoc[0]+fechaDoc[1]+fechaDoc[2]+".txt"
+    }
+
+    function verdoc2(){
+      var dateInt = document.querySelector('#dateint').value;
+      var fechaDoc = dateInt.split("-",3);
+      window.location.href="http://buemboprdb1/export/opera/buemb/trial"+fechaDoc[0]+fechaDoc[1]+fechaDoc[2]+".txt";  
+    }
+
+    function verdoc3(){
+      var dateInt = document.querySelector('#dateint').value;
+      var fechaDoc = dateInt.split("-",3);
+      window.location.href="http://buemboprdb1/export/opera/buemb/iv"+fechaDoc[0].substr(-2,2)+fechaDoc[1]+fechaDoc[2]+".txt";
+    } 
+  </script>
+
+  <script>
+    
+    var boton1 = document.getElementById("botonasiento");
+    var boton2 = document.getElementById("botonasiento2");
+
+    boton1.addEventListener("click", mostrarAsiento);
+    boton2.addEventListener("click", mostrarAsiento2);
+
+    function mostrarAsiento(){
+        document.getElementById("nada").className = "none";
+        document.getElementById("factu").className = "visualizacion";
+        document.getElementById("doc").className = "none";
+    }
+
+    function mostrarAsiento2(){
+        document.getElementById("nada").className = "none";
+        document.getElementById("doc").className = "visualizacion";
+        document.getElementById("factu").className = "none";
+    }
+    
+  </script>
+</body>
+</html>
