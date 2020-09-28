@@ -103,6 +103,7 @@ padding: 50px;
        <section class="opciones">
            <div><button type="submit" id="botonasiento">Buscador de Facturas</button></div>
            <div><button type="submit" id="botonasiento2">Generar Docs para integración</button></div>
+           <div><button type="submit" id="botonasiento3">Ver Trial Balanc</button></div>
        </section>
        <div class="visualizacion" id="nada" style="font-size: 40px;">Bienvenidos</div>
        <section id="factu" class="none">
@@ -138,13 +139,21 @@ padding: 50px;
     
    <section id="doc" class="none">
     <div class="form1">
-       <label for="dateint">Selecciones Fecha
+       <label for="dateint">Selecciones Fecha:
            <input type="date" id="dateint">
        </label><br>
        <input id="doct1" type="button" value="TXT Trial">
        <input id="doct2" type="button" value="TXT Financiero">
        <input id="doct3" type="button" value="TXT Fiscal">
       </div>
+   </section>
+
+   <section class="none" id="iva">
+     <label for="dateiva">Seleccione Fecha:
+       <input type="date" id="dateiva">
+     </label>
+     <input id="doct4" type="button" value="Consultar">
+     <div id="respuestaiva" style="overflow: auto; height: 100%;"></divx>
    </section>
   
 </main>
@@ -154,7 +163,7 @@ padding: 50px;
        <div>Contactanos: Cargomez1994@gmail.com</div>
    </footer>
 
-   <script>
+   <script> // script del buscador de facturas
     var boton = document.getElementById("botoncito");
     boton.addEventListener("click", dibujoPorClick);
     var n12 = document.getElementById("n2").value;
@@ -201,7 +210,7 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
   }
   </script>
 
-  <script>
+  <script> // script del buscador de archivos txt
 
     var doc1 = document.getElementById("doct1");
     var doc2 = document.getElementById("doct2");
@@ -229,26 +238,84 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     } 
   </script>
 
-  <script>
+  <script> //script de los botones del menú
     
     var boton1 = document.getElementById("botonasiento");
     var boton2 = document.getElementById("botonasiento2");
+    var boton3 = document.getElementById("botonasiento3");
+
 
     boton1.addEventListener("click", mostrarAsiento);
     boton2.addEventListener("click", mostrarAsiento2);
+    boton3.addEventListener("click", mostrarAsiento3);
 
     function mostrarAsiento(){
         document.getElementById("nada").className = "none";
         document.getElementById("factu").className = "visualizacion";
         document.getElementById("doc").className = "none";
+        document.getElementById("iva").className = "none";
     }
 
     function mostrarAsiento2(){
         document.getElementById("nada").className = "none";
         document.getElementById("doc").className = "visualizacion";
         document.getElementById("factu").className = "none";
+        document.getElementById("iva").className = "none";
+    }
+
+    function mostrarAsiento3(){
+        document.getElementById("nada").className = "none";
+        document.getElementById("doc").className = "none";
+        document.getElementById("factu").className = "none";
+        document.getElementById("iva").className = "visualizacion";
     }
     
+  </script>
+
+  <script>
+    var dataiva2 = document.getElementById("dataiva");
+    //var buttoniva = document.getElementById("doct4");
+
+    //buttoniva.addEventListener("click", mostrarLibro);
+
+    //function mostrarLibro(){
+      //alert("marica ganaste");
+    //}
+
+    document.querySelector('#doct4').addEventListener('click', traerLibro);
+
+    function traerLibro(){
+
+      const xhttp = new XMLHttpRequest();
+
+      xhttp.open('GET','https://apo24.github.io/Apo24/texto.txt',true);
+
+      xhttp.send();
+
+
+      xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+          var div = document.getElementById('respuestaiva');
+          var tab = this.responseText.split('\n');
+          var linea4 = tab[0].split('\\t');
+          alert(linea4[0]);
+          //document.querySelector('#respuestaiva').innerHTML = this.responseText;  
+
+          var tab = this.responseText.split('\n');
+          var lineas = 0
+          for(var line = 0; line < tab.length; line++){
+         // document.querySelector('#respuestaiva').innerHTML = tab[line];
+         var parrafo   = document.createElement("p");
+         var linkText = document.createTextNode(tab[line]);
+		     parrafo.appendChild(linkText);
+         div.appendChild(parrafo);
+          console.log(tab[line]);
+
+      }
+      }
+    }
+    }
+
   </script>
 </body>
 </html>
