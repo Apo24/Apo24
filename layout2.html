@@ -104,6 +104,7 @@ padding: 50px;
            <div><button type="submit" id="botonasiento">Buscador de Facturas</button></div>
            <div><button type="submit" id="botonasiento2">Generar Docs para integración</button></div>
            <div><button type="submit" id="botonasiento3">Ver Trial Balanc</button></div>
+           <div><button type="submit" id="botonasiento4">Ver IVA Ventas</button></div>
        </section>
        <div class="visualizacion" id="nada" style="font-size: 40px;">Bienvenidos</div>
        <section id="factu" class="none">
@@ -153,7 +154,17 @@ padding: 50px;
        <input type="date" id="dateiva">
      </label>
      <input id="doct4" type="button" value="Consultar">
-     <div id="respuestaiva" style="overflow: auto; height: 100%;"></divx>
+     <div id="respuestaiva" style="overflow: auto; height: 100%;"></div>
+   </section>
+
+   <section class="none" id="iva2">
+     <label for="dateiva2">Seleccione Fecha IVA:
+        <input type="date" id="dateiva2">
+     </label>
+     <input id="doct5" type="button" value="Consultar">
+     <table>
+     <tr id="cabeceraiva" style="overflow: auto; height: 100%;"></tr></table>
+     <pre id="respuestaiva2" style="overflow: auto; height: 100%;"></pre>
    </section>
   
 </main>
@@ -243,17 +254,20 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     var boton1 = document.getElementById("botonasiento");
     var boton2 = document.getElementById("botonasiento2");
     var boton3 = document.getElementById("botonasiento3");
+    var boton3 = document.getElementById("botonasiento4");
 
 
     boton1.addEventListener("click", mostrarAsiento);
     boton2.addEventListener("click", mostrarAsiento2);
     boton3.addEventListener("click", mostrarAsiento3);
+    boton3.addEventListener("click", mostrarAsiento4);
 
     function mostrarAsiento(){
         document.getElementById("nada").className = "none";
         document.getElementById("factu").className = "visualizacion";
         document.getElementById("doc").className = "none";
         document.getElementById("iva").className = "none";
+        document.getElementById("iva2").className = "none";
     }
 
     function mostrarAsiento2(){
@@ -261,6 +275,7 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
         document.getElementById("doc").className = "visualizacion";
         document.getElementById("factu").className = "none";
         document.getElementById("iva").className = "none";
+        document.getElementById("iva2").className = "none";
     }
 
     function mostrarAsiento3(){
@@ -268,6 +283,15 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
         document.getElementById("doc").className = "none";
         document.getElementById("factu").className = "none";
         document.getElementById("iva").className = "visualizacion";
+        document.getElementById("iva2").className = "none";
+    }
+
+    function mostrarAsiento4  (){
+        document.getElementById("nada").className = "none";
+        document.getElementById("doc").className = "none";
+        document.getElementById("factu").className = "none";
+        document.getElementById("iva").className = "none";
+        document.getElementById("iva2").className = "visualizacion";
     }
     
   </script>
@@ -316,6 +340,73 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     }
     }
 
+  </script>
+  <script>
+    var dataiva3 = document.getElementById("dataiva2");
+    document.querySelector('#doct5').addEventListener('click', traerLibroIva);
+    function traerLibroIva(){
+      var thead = document.getElementById("cabeceraiva");
+      var thea = document.createElement("th");
+
+      var Fech = document.createTextNode('Fecha');
+      var tipo = document.createTextNode('Tipo');
+      var numero = document.createTextNode('Número');
+      var razon = document.createTextNode('Razon Social');
+      var doc = document.createTextNode('Documento');
+      var numero2 = document.createTextNode('Número');
+      var cat = document.createTextNode('Categoria');
+      var cot = document.createTextNode('Cotización');
+      var grab = document.createTextNode('Gravado');
+      var noGrab = document.createTextNode('No gravado');
+      var total = document.createTextNode('Total');
+      var alic = document.createTextNode('Alicuota');
+      var iva9 = document.createTextNode('IVA');
+      var reinIva = document.createTextNode('Reintegro IVA');
+      var exce = document.createTextNode('Excento');
+      var precIB = document.createTextNode('Percepcion de IIBB');
+      var percIVA = document.createTextNode('Percepcion de IVA');
+
+      thea.appendChild(Fech);
+
+      thea.appendChild(tipo);
+      thea.appendChild(numero);
+      thea.appendChild(razon);
+      thea.appendChild(doc);
+      thea.appendChild(numero2);
+      thea.appendChild(cat);
+      thea.appendChild(cot);
+      thea.appendChild(grab);
+      thea.appendChild(noGrab);
+      thea.appendChild(total);
+      thea.appendChild(alic);
+      thea.appendChild(iva9);
+      thea.appendChild(reinIva);
+      thea.appendChild(exce);
+      thea.appendChild(precIB);
+      thea.appendChild(percIVA);
+
+      thead.appendChild(thea);
+
+     // document.querySelector('#cabeceraiva').innerHTML = '<th>Fecha</th>';
+
+    const xhttp2 = new XMLHttpRequest();
+
+    xhttp2.open('GET','https://apo24.github.io/Apo24/iva.txt',true);
+
+    xhttp2.send();
+
+
+    xhttp2.onreadystatechange = function(){
+      
+
+    if(this.readyState == 4 && this.status == 200){
+      
+
+      document.querySelector('#respuestaiva2').innerHTML = this.responseText;
+
+    }
+    }
+    }
   </script>
 </body>
 </html>
