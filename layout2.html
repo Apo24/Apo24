@@ -157,13 +157,19 @@ padding: 50px;
      <div id="respuestaiva" style="overflow: auto; height: 100%;"></div>
    </section>
 
-   <section class="none" id="iva2">
+   <section class="none" id="iva2" style="overflow: auto;">
      <label for="dateiva2">Seleccione Fecha IVA:
         <input type="date" id="dateiva2">
      </label>
      <input id="doct5" type="button" value="Consultar">
-     <table>
-     <tr id="cabeceraiva" style="overflow: auto; height: 100%;"></tr></table>
+     <table >
+       <thead>
+     <tr id="cabeceraiva" style="overflow: auto; height: 100%;"></tr>
+    </thead>
+    <tbody >
+      <tr id="cuerpoTabla" style="overflow: auto; height: 100%;"></tr>
+    </tbody>
+    </table>
      <pre id="respuestaiva2" style="overflow: auto; height: 100%;"></pre>
    </section>
   
@@ -254,13 +260,13 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     var boton1 = document.getElementById("botonasiento");
     var boton2 = document.getElementById("botonasiento2");
     var boton3 = document.getElementById("botonasiento3");
-    var boton3 = document.getElementById("botonasiento4");
+    var boton4 = document.getElementById("botonasiento4");
 
 
     boton1.addEventListener("click", mostrarAsiento);
     boton2.addEventListener("click", mostrarAsiento2);
     boton3.addEventListener("click", mostrarAsiento3);
-    boton3.addEventListener("click", mostrarAsiento4);
+    boton4.addEventListener("click", mostrarAsiento4);
 
     function mostrarAsiento(){
         document.getElementById("nada").className = "none";
@@ -298,13 +304,6 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
 
   <script>
     var dataiva2 = document.getElementById("dataiva");
-    //var buttoniva = document.getElementById("doct4");
-
-    //buttoniva.addEventListener("click", mostrarLibro);
-
-    //function mostrarLibro(){
-      //alert("marica ganaste");
-    //}
 
     document.querySelector('#doct4').addEventListener('click', traerLibro);
 
@@ -346,46 +345,39 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     document.querySelector('#doct5').addEventListener('click', traerLibroIva);
     function traerLibroIva(){
       var thead = document.getElementById("cabeceraiva");
-      var thea = document.createElement("th");
 
-      var Fech = document.createTextNode('Fecha');
-      var tipo = document.createTextNode('Tipo');
-      var numero = document.createTextNode('Número');
-      var razon = document.createTextNode('Razon Social');
-      var doc = document.createTextNode('Documento');
-      var numero2 = document.createTextNode('Número');
-      var cat = document.createTextNode('Categoria');
-      var cot = document.createTextNode('Cotización');
-      var grab = document.createTextNode('Gravado');
-      var noGrab = document.createTextNode('No gravado');
-      var total = document.createTextNode('Total');
-      var alic = document.createTextNode('Alicuota');
-      var iva9 = document.createTextNode('IVA');
-      var reinIva = document.createTextNode('Reintegro IVA');
-      var exce = document.createTextNode('Excento');
-      var precIB = document.createTextNode('Percepcion de IIBB');
-      var percIVA = document.createTextNode('Percepcion de IVA');
 
-      thea.appendChild(Fech);
+      var encabezadoFull = [
+        "Fecha",
+        "Tipo",
+        "Número",
+        "Razón Social",
+        "Documento",
+        "Número",
+        "Categoria",
+        "Cotizacion",
+        "Gravado",
+        "No gravado",
+        "Total",
+        "Alicuota",
+        "IVA",
+        "Reintegro de IVA",
+        "Excento",
+        "Percepcion IIBB",
+        "Percepcion IVA"
+      ];
 
-      thea.appendChild(tipo);
-      thea.appendChild(numero);
-      thea.appendChild(razon);
-      thea.appendChild(doc);
-      thea.appendChild(numero2);
-      thea.appendChild(cat);
-      thea.appendChild(cot);
-      thea.appendChild(grab);
-      thea.appendChild(noGrab);
-      thea.appendChild(total);
-      thea.appendChild(alic);
-      thea.appendChild(iva9);
-      thea.appendChild(reinIva);
-      thea.appendChild(exce);
-      thea.appendChild(precIB);
-      thea.appendChild(percIVA);
+      var i3 = 0
 
-      thead.appendChild(thea);
+      while(i3 < encabezadoFull.length){
+        var thea = document.createElement("th");
+        var Fech = document.createTextNode(encabezadoFull[i3]);
+        thea.appendChild(Fech);
+        thead.appendChild(thea);
+        i3 = i3 + 1;
+      }
+
+
 
      // document.querySelector('#cabeceraiva').innerHTML = '<th>Fecha</th>';
 
@@ -401,9 +393,44 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
 
     if(this.readyState == 4 && this.status == 200){
       
+      var tab2 = this.responseText.split('\n');
 
-      document.querySelector('#respuestaiva2').innerHTML = this.responseText;
+      document.querySelector('#respuestaiva2').innerHTML = tab2[0];
+      var i4 = 0
+      var tbody = document.getElementById("cuerpoTabla");
 
+      //while(i4 < 17){
+      //  var tbod = document.createElement("td");
+      //  var Fech1 = document.createTextNode(i4);
+      //  tbod.appendChild(Fech1);
+      //  tbody.appendChild(tbod);
+      //  i4 = i4 + 1;
+      //}
+
+      var tb1 = document.createElement("td");
+      var tbo1 = document.createTextNode(tab2[0].substr(6 , 2)+"/"+tab2[0].substr(4, 2)+"/"+tab2[0].substr(0, 4));
+      tb1.appendChild(tbo1);
+      tbody.appendChild(tb1);
+
+      var tb2 = document.createElement("td");
+      var tbo2 = document.createTextNode(tab2[0].substr(8, 3)+"-"+tab2[0].substr(15, 1));
+      tb2.appendChild(tbo2);
+      tbody.appendChild(tb2);
+
+      var tb3 = document.createElement("td");
+      var tbo3 = document.createTextNode(tab2[0].substr(11, 4));
+      tb3.appendChild(tbo3);
+      tbody.appendChild(tb3);
+
+      var tb4 = document.createElement("td");
+      var tbo4 = document.createTextNode(tab2[0].substr(130, 27));
+      tb4.appendChild(tbo4);
+      tbody.appendChild(tb4);
+
+      var tb5 = document.createElement("td");
+      var tbo5 = document.createTextNode(tab2[0].substr(130, 27));
+      tb5.appendChild(tbo5);
+      tbody.appendChild(tb5);
     }
     }
     }
