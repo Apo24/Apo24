@@ -39,14 +39,14 @@
 
 .opciones {
 background-color: darkblue;
-width: 15%;
-height: 450px;
+width: 10%;
+height: 525px;
 }
 
 .visualizacion {
 background-color: lightblue;
-width: 85%;
-height: 450px;
+width: 90%;
+height: 525px;
 padding: 50px;
 }
 
@@ -90,6 +90,19 @@ padding: 50px;
     line-height : 35px;
     font-size: 20px;
 }
+.cuerpoTabla td ¡important{
+  width: 120%;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: lightblue;
+}
+
+tbody tr:nth-child(even) {
+  background-color: lightcyan;
+}
+
+
     </style>
     <title>Document</title>
 </head>
@@ -162,11 +175,29 @@ padding: 50px;
         <input type="date" id="dateiva2">
      </label>
      <input id="doct5" type="button" value="Consultar">
-     <table >
+     <table style="text-align: center;">
        <thead>
-     <tr id="cabeceraiva" style="overflow: auto; height: 100%;"></tr>
+     <tr id="cabeceraiva" style="overflow: auto; height: 100%;" class="none" >
+      <th style="padding: 0 25px;">Fecha</th>
+      <th style="padding: 0 25px;">Tipo</th>
+      <th style="padding: 0 25px;">Número</th>
+      <th style="padding: 0 25px;">Razón Social</th>
+      <th style="padding: 0 25px;">Documento</th>
+      <th style="padding: 0 25px;">Número</th>
+      <th style="padding: 0 25px;"> Categoria</th>
+      <th style="padding: 0 25px;">Cotizacion</th>
+      <th style="padding: 0 25px;">Gravado</th>
+      <th style="padding: 0 25px;">No gravado</th>
+      <th style="padding: 0 25px;">Total</th>
+      <th style="padding: 0 25px;">Alicuota</th>
+      <th style="padding: 0 25px;">IVA</th>
+      <th style="padding: 0 25px;">Reintegro de IVA</th>
+      <th style="padding: 0 25px;">Excento</th>
+      <th style="padding: 0 25px;">Percepcion de IIBB</th>
+      <th style="padding: 0 25px;">Percepcion de IVA</th>
+    </tr>
     </thead>
-    <tbody >
+    <tbody id="cuerpo">
       <tr id="cuerpoTabla" style="overflow: auto; height: 100%;"></tr>
     </tbody>
     </table>
@@ -311,7 +342,11 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
 
       const xhttp = new XMLHttpRequest();
 
-      xhttp.open('GET','https://apo24.github.io/Apo24/texto.txt',true);
+      var dateInt2 = document.querySelector('#dateiva').value;
+      var fechaDoc2 = dateInt.split("-",3);
+
+        xhttp.open('GET','http://buemboprdb1/export/opera/buemb/iv"+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+fechaDoc2[2]+".txt',true);
+     // xhttp.open('GET','https://apo24.github.io/Apo24/texto.txt',true);
 
       xhttp.send();
 
@@ -345,41 +380,8 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     document.querySelector('#doct5').addEventListener('click', traerLibroIva);
     function traerLibroIva(){
       var thead = document.getElementById("cabeceraiva");
+      thead.className = "";
 
-
-      var encabezadoFull = [
-        "Fecha",
-        "Tipo",
-        "Número",
-        "Razón Social",
-        "Documento",
-        "Número",
-        "Categoria",
-        "Cotizacion",
-        "Gravado",
-        "No gravado",
-        "Total",
-        "Alicuota",
-        "IVA",
-        "Reintegro de IVA",
-        "Excento",
-        "Percepcion IIBB",
-        "Percepcion IVA"
-      ];
-
-      var i3 = 0
-
-      while(i3 < encabezadoFull.length){
-        var thea = document.createElement("th");
-        var Fech = document.createTextNode(encabezadoFull[i3]);
-        thea.appendChild(Fech);
-        thead.appendChild(thea);
-        i3 = i3 + 1;
-      }
-
-
-
-     // document.querySelector('#cabeceraiva').innerHTML = '<th>Fecha</th>';
 
     const xhttp2 = new XMLHttpRequest();
 
@@ -395,9 +397,9 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
       
       var tab2 = this.responseText.split('\n');
 
-      document.querySelector('#respuestaiva2').innerHTML = tab2[0];
       var i4 = 0
-      var tbody = document.getElementById("cuerpoTabla");
+      //var tbody = document.getElementById("cuerpoTabla");
+      var cuerpo =document.getElementById("cuerpo");
 
       //while(i4 < 17){
       //  var tbod = document.createElement("td");
@@ -406,31 +408,113 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
       //  tbody.appendChild(tbod);
       //  i4 = i4 + 1;
       //}
+        var iiva = 0
+        while(iiva < tab2.length - 1){
+      var tbody = document.createElement("tr"); 
 
       var tb1 = document.createElement("td");
-      var tbo1 = document.createTextNode(tab2[0].substr(6 , 2)+"/"+tab2[0].substr(4, 2)+"/"+tab2[0].substr(0, 4));
+      var tbo1 = document.createTextNode(tab2[iiva].substr(6 , 2)+"/"+tab2[iiva].substr(4, 2)+"/"+tab2[iiva].substr(0, 4));
       tb1.appendChild(tbo1);
       tbody.appendChild(tb1);
 
+      if(tab2[iiva].substr(8, 3) == "C31"){
       var tb2 = document.createElement("td");
-      var tbo2 = document.createTextNode(tab2[0].substr(8, 3)+"-"+tab2[0].substr(15, 1));
+      var tbo2 = document.createTextNode("FAC  "+tab2[iiva].substr(15, 1));
       tb2.appendChild(tbo2);
       tbody.appendChild(tb2);
+      }else{
+        var tb2 = document.createElement("td");
+      var tbo2 = document.createTextNode("NC  "+tab2[iiva].substr(15, 1));
+      tb2.appendChild(tbo2);
+      tbody.appendChild(tb2);
+      }
 
       var tb3 = document.createElement("td");
-      var tbo3 = document.createTextNode(tab2[0].substr(11, 4));
+      var tbo3 = document.createTextNode(tab2[iiva].substr(11, 4)+"-"+tab2[iiva].substr(19, 5));
       tb3.appendChild(tbo3);
       tbody.appendChild(tb3);
 
       var tb4 = document.createElement("td");
-      var tbo4 = document.createTextNode(tab2[0].substr(130, 27));
+      var tbo4 = document.createTextNode(tab2[iiva].substr(130, 27));
       tb4.appendChild(tbo4);
       tbody.appendChild(tb4);
 
       var tb5 = document.createElement("td");
-      var tbo5 = document.createTextNode(tab2[0].substr(130, 27));
+      var tbo5 = document.createTextNode('CUIT');
       tb5.appendChild(tbo5);
       tbody.appendChild(tb5);
+
+      var tb6 = document.createElement("td");
+      var tbo6 = document.createTextNode(tab2[iiva].substr(163, 10));
+      tb6.appendChild(tbo6);
+      tbody.appendChild(tb6);
+
+      var tb7 = document.createElement("td");
+      var tbo7 = document.createTextNode(tab2[iiva].substr(115, 1));
+      tb7.appendChild(tbo7);
+      tbody.appendChild(tb7);
+
+      var tb8 = document.createElement("td");
+      var tbo8 = document.createTextNode('0');
+      tb8.appendChild(tbo8);
+      tbody.appendChild(tb8);
+
+      var tb9 = document.createElement("td");
+      var tbo9 = document.createTextNode(tab2[iiva].substr(51, 10)+","+tab2[iiva].substr(61, 2));
+      tb9.appendChild(tbo9);
+      tbody.appendChild(tb9);
+
+      var tb10 = document.createElement("td");
+      var tbo10 = document.createTextNode(tab2[iiva].substr(64, 10)+","+tab2[0].substr(74, 2));
+      tb10.appendChild(tbo10);
+      tbody.appendChild(tb10);
+
+      var tb11 = document.createElement("td");
+      var tbo11 = document.createTextNode(tab2[iiva].substr(25, 10)+","+tab2[iiva].substr(35, 2));
+      tb11.appendChild(tbo11);
+      tbody.appendChild(tb11);
+
+      var tb12 = document.createElement("td");
+      var tbo12 = document.createTextNode('21');
+      tb12.appendChild(tbo12);
+      tbody.appendChild(tb12);
+
+      var tb13 = document.createElement("td");
+      var tbo13 = document.createTextNode(tab2[iiva].substr(38, 10)+","+tab2[iiva].substr(48, 2));
+      tb13.appendChild(tbo13);
+      tbody.appendChild(tb13);
+
+      if(tab2[iiva].substr(15, 1) == "T"){
+        var tb14 = document.createElement("td");
+      var tbo14 = document.createTextNode("-"+tab2[iiva].substr(38, 10)+","+tab2[iiva].substr(48, 2));
+      tb14.appendChild(tbo14);
+      tbody.appendChild(tb14);
+      }else{
+        var tb14 = document.createElement("td");
+      var tbo14 = document.createTextNode("0000000000,00");
+      tb14.appendChild(tbo14);
+      tbody.appendChild(tb14);
+      }
+
+      var tb15 = document.createElement("td");
+      var tbo15 = document.createTextNode("0000000000,00");
+      tb15.appendChild(tbo15);
+      tbody.appendChild(tb15);
+
+      var tb16 = document.createElement("td");
+      var tbo16 = document.createTextNode(tab2[iiva].substr(102, 10)+","+tab2[iiva].substr(112, 2));
+      tb16.appendChild(tbo16);
+      tbody.appendChild(tb16);
+
+      var tb17 = document.createElement("td");
+      var tbo17 = document.createTextNode("0000000000,00");
+      tb17.appendChild(tbo17);
+      tbody.appendChild(tb17);
+
+      cuerpo.appendChild(tbody);
+
+      iiva = iiva + 1;
+    }
     }
     }
     }
