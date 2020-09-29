@@ -342,11 +342,8 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
 
       const xhttp = new XMLHttpRequest();
 
-      var dateInt2 = document.querySelector('#dateiva').value;
-      var fechaDoc2 = dateInt.split("-",3);
-
-        xhttp.open('GET','http://buemboprdb1/export/opera/buemb/iv"+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+fechaDoc2[2]+".txt',true);
-     // xhttp.open('GET','https://apo24.github.io/Apo24/texto.txt',true);
+      
+     xhttp.open('GET','https://apo24.github.io/Apo24/texto.txt',true);
 
       xhttp.send();
 
@@ -381,6 +378,11 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     function traerLibroIva(){
       var thead = document.getElementById("cabeceraiva");
       thead.className = "";
+
+      var dateInt2 = document.querySelector('#dateiva2').value;
+      var fechaDoc2 = dateInt.split("-",3);
+
+        xhttp.open('GET',"http://buemboprdb1/export/opera/buemb/iv"+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+fechaDoc2[2]+".txt",true);
 
 
     const xhttp2 = new XMLHttpRequest();
