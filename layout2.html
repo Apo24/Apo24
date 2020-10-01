@@ -390,7 +390,7 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
 
       var repeticiones = (fechaDoc3[2] - fechaDoc2[2])+1;
       var i8 = 0;
-    //  while(i8 < repeticiones){
+    while(i8 < repeticiones){
         
       
 
@@ -401,7 +401,20 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
 
     var diad = fechaDoc2[2];
 
-    xhttp2.open('GET','iv'+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+diad+'.txt',true);
+    //"10"
+    
+    var dadd = parseInt(diad, 10)+i8;
+    //Número
+
+   // if(diad < 10){
+      var dadh = "0"+dadd.toString();
+    //}else{
+    //  var dadh = dadd.toString();
+    //}
+
+    
+    //console.log(i8+" "+dadh.substr(-2, 2));
+    xhttp2.open('GET','iv'+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+dadh.substr(-2, 2)+'.txt',true);
 
     xhttp2.send();
 
@@ -526,9 +539,9 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     }
     }
     }
-    //diad = (diad - 1) + 1;
+     diad = diad +1;
       i8 = i8 +1;
-    //  }
+      }
     }
   </script>
 </body>
