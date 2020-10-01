@@ -116,8 +116,8 @@ tbody tr:nth-child(even) {
        <section class="opciones">
            <div><button type="submit" id="botonasiento">Buscador de Facturas</button></div>
            <div><button type="submit" id="botonasiento2">Generar Docs para integración</button></div>
-           <div><button type="submit" id="botonasiento3">Ver Trial Balanc</button></div>
-           <div><button type="submit" id="botonasiento4">Ver IVA Ventas</button></div>
+           <div><button type="submit" id="botonasiento3" style="padding: 0 15px;">Ver Trial Balanc</button></div>
+           <div><button type="submit" id="botonasiento4" style="padding: 0 15px;">Ver IVA Ventas</button></div>
        </section>
        <div class="visualizacion" id="nada" style="font-size: 40px;">Bienvenidos</div>
        <section id="factu" class="none">
@@ -163,18 +163,20 @@ tbody tr:nth-child(even) {
    </section>
 
    <section class="none" id="iva">
+     <form action="">
      <label for="dateiva">Seleccione Fecha:
-       <input type="date" id="dateiva">
+       <input type="date" id="dateiva" required>
      </label>
      <input id="doct4" type="button" value="Consultar">
+    </form>
      <pre id="respuestaiva" style="overflow: auto; height: 100%;"></pre>
    </section>
 
    <section class="none" id="iva2" style="overflow: auto;">
      <label for="dateiva2">Seleccione Fecha:
-        <input type="date" id="dateiva2">
+        <input type="date" id="dateiva2" required>
         Hasta
-        <input type="date" id="dateiva3">
+        <input type="date" id="dateiva3" required>
      </label>
      <input id="doct5" type="button" value="Consultar">
      <table style="text-align: center;">
