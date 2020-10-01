@@ -389,8 +389,10 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
       var fechaDoc3 = dateInt3.split("-",3);
 
       var repeticiones = (fechaDoc3[2] - fechaDoc2[2])+1;
-     
-      while(0 < repeticiones){
+      var i8 = 0;
+      while(i8 < repeticiones){
+        
+      
 
     const xhttp2 = new XMLHttpRequest();
     var linkk = "http://buemboprdb1/export/opera/buemb/iv"+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+fechaDoc2[2]+".txt";
@@ -524,9 +526,9 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
     }
     }
     }
-    repeticiones = repeticiones + 1;
     diad = (diad - 1) + 1;
-    }
+      i8 = i8 +1;
+      }
     }
   </script>
 </body>
