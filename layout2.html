@@ -171,8 +171,10 @@ tbody tr:nth-child(even) {
    </section>
 
    <section class="none" id="iva2" style="overflow: auto;">
-     <label for="dateiva2">Seleccione Fecha IVA:
+     <label for="dateiva2">Seleccione Fecha:
         <input type="date" id="dateiva2">
+        Hasta
+        <input type="date" id="dateiva6">
      </label>
      <input id="doct5" type="button" value="Consultar">
      <table style="text-align: center;">
@@ -375,14 +377,19 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
   <script>
     var dataiva3 = document.getElementById("dataiva2");
     document.querySelector('#doct5').addEventListener('click', traerLibroIva);
+
     function traerLibroIva(){
       var thead = document.getElementById("cabeceraiva");
       thead.className = "";
 
       var dateInt2 = document.querySelector('#dateiva2').value;
-      var fechaDoc2 = dateInt2.split("-",3);
+      var dateInt3 = document.querySelector('#dateiva3').value;
 
-        
+      var fechaDoc2 = dateInt2.split("-",3);
+      var fechaDoc3 = dateInt2.split("-",3);
+
+      var repeticiones = fechaDoc2[2] - fechaDoc3[2];
+      alert(repeticiones);
 
 
     const xhttp2 = new XMLHttpRequest();
@@ -406,13 +413,6 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
       //var tbody = document.getElementById("cuerpoTabla");
       var cuerpo =document.getElementById("cuerpo");
 
-      //while(i4 < 17){
-      //  var tbod = document.createElement("td");
-      //  var Fech1 = document.createTextNode(i4);
-      //  tbod.appendChild(Fech1);
-      //  tbody.appendChild(tbod);
-      //  i4 = i4 + 1;
-      //}
         var iiva = 0
         while(iiva < tab2.length - 1){
       var tbody = document.createElement("tr"); 
