@@ -388,16 +388,18 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
       var fechaDoc2 = dateInt2.split("-",3);
       var fechaDoc3 = dateInt3.split("-",3);
 
-      var repeticiones = fechaDoc2[3] - fechaDoc3[2];
-      alert(fechaDoc2[3]+" "+fechaDoc3[2]);
-
+      var repeticiones = (fechaDoc3[2] - fechaDoc2[2])+1;
+     
+      while(0 < repeticiones){
 
     const xhttp2 = new XMLHttpRequest();
     var linkk = "http://buemboprdb1/export/opera/buemb/iv"+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+fechaDoc2[2]+".txt";
      
     //xhttp2.open('GET', 'http://buemboprdb1/export/opera/buemb/iv'+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+fechaDoc2[2]+'.txt', true);
 
-    xhttp2.open('GET','iv'+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+fechaDoc2[2]+'.txt',true);
+    var diad = fechaDoc2[2];
+
+    xhttp2.open('GET','iv'+fechaDoc2[0].substr(-2,2)+fechaDoc2[1]+diad+'.txt',true);
 
     xhttp2.send();
 
@@ -521,6 +523,9 @@ window.location.href="file:///Z:/Docs/BUEMBCREDITO"+nc_fac+n11+"_"+n13+".pdf";
       iiva = iiva + 1;
     }
     }
+    }
+    repeticiones = repeticiones + 1;
+    diad = (diad - 1) + 1;
     }
     }
   </script>
